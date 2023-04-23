@@ -104,6 +104,7 @@ function runCommand(target: string) {
 		t = vscode.window.createTerminal();
 	}
 
+	t.show(false)
 	t.sendText(`make ${target}`);
 
 }

@@ -13,6 +13,9 @@
     "onStartupFinished"
   ],
   "icon": "images/icon.png",
+  "repository": {
+    "url": "https://github.com/hablof/makefile-buttons"
+  },
   "main": "./out/extension.js",
   "contributes": {
     "commands": [

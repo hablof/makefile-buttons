@@ -1,21 +1,7 @@
 // The module 'vscode' contains the VS Code extensibility API
 // Import the module and reference it with the alias vscode in your code below
 import * as vscode from 'vscode';
-import * as child_process from 'child_process';
 
-
-
-// const MakefilePattegn: vscode.DocumentFilter = { scheme: 'file', pattern: 'Makefile' };
-// const MakefileLanguage: vscode.DocumentFilter = { scheme: 'file', language: 'Makefile' };
-// export function isMakefile(document: vscode.TextDocument): boolean {
-// 	if (
-// 		vscode.languages.match(MakefilePattegn, document) ||
-// 		vscode.languages.match(MakefileLanguage, document)
-// 	) {
-// 		return true;
-// 	}
-// 	return false;
-// }
 
 export function activate(context: vscode.ExtensionContext) {
 	console.log('activate makefile buttons!')
@@ -26,8 +12,10 @@ export function activate(context: vscode.ExtensionContext) {
 			{ scheme: 'file' }, codelensProvider
 		)
 	);
-	// context.subscriptions.push(vscode.languages.registerCodeLensProvider(MakefileLanguage, codelensProvider));
-	// context.subscriptions.push(vscode.languages.registerCodeLensProvider(MakefilePattegn, codelensProvider));
+
+	const disposable = vscode.commands.registerCommand('extension.runCommand', (target: string) => {
+		runCommand(target)
+	});
 }
 
 class MakefileCodelensProvider implements vscode.CodeLensProvider {
@@ -75,45 +63,47 @@ class MakefileCodelensProvider implements vscode.CodeLensProvider {
 
 	public findMatches(document: vscode.TextDocument): vscode.CodeLens[] {
 		console.log('findMatches!')
-
+		
 		const codeLenses: vscode.CodeLens[] = [];
-		const pattern = /^[\w\-]+:(?:\s[\.\w\-]+)*/gm;
-
-
+		const pattern = /^([\w\-]+):/m;
+		
+		
 		for (let i = 0; i < document.lineCount; i++) {
 			const line = document.lineAt(i);
 			const simpleMatch = line.text.match(pattern);
-
-
+			
+			
 			if (simpleMatch) {
-				const target = simpleMatch[0];
-
-				codeLenses.push(
-					new vscode.CodeLens(
-						line.range,
-						{
-							title: 'make ' + target,
-							command: 'makefile.runCommand',
-							arguments: [target]
-						})
-				);
+				
+					const target = simpleMatch[1];
+					
+					codeLenses.push(
+						new vscode.CodeLens(
+							line.range,
+							{
+								title: 'make ' + target,
+								command: 'extension.runCommand',
+								arguments: [target],
+								tooltip: "executes target " + target
+							})
+					);
+				// }
 			}
 		}
 		return codeLenses;
 	}
 }
   
-  function runCommand(command: string, args: string[]) {
-	const makeProcess = child_process.spawn(command, args, { cwd: vscode.workspace.rootPath });
-	makeProcess.stdout.on('data', (data) => {
-	  console.log(data.toString());
-	});
-	makeProcess.stderr.on('data', (data) => {
-	  console.error(data.toString());
-	});
-	makeProcess.on('exit', (code) => {
-	  if (code !== 0) {
-		vscode.window.showErrorMessage(`Makefile command "${command}" failed with error code ${code}`);
-	  }
-	});
-  }
+function runCommand(target: string) {
+	console.log('runCommand! target: ' + target)
+
+	let t: vscode.Terminal
+	if (vscode.window.activeTerminal) {
+		t = vscode.window.activeTerminal
+	} else {
+		t = vscode.window.createTerminal();
+	}
+
+	t.sendText(`make ${target}`);
+
+}

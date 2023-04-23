@@ -14,7 +14,12 @@
   ],
   "main": "./out/extension.js",
   "contributes": {
-    "commands": []
+    "commands": [
+      {
+        "command": "extension.runCommand",
+        "title": "runCommand"
+      }
+    ]
   },
   "scripts": {
     "vscode:prepublish": "npm run compile",

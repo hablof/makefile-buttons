@@ -1,7 +1,13 @@
 {
   "name": "makefile-buttons",
   "displayName": "Makefile buttons",
+  "publisher": "hablof",
+  "license": "MIT",
+  "icon": "images/icon.png",
   "description": "Adds codelens buttons to your makefiles to run targets by mouse click",
+  "repository": {
+    "url": "https://github.com/hablof/makefile-buttons"
+  },
   "version": "0.0.1",
   "engines": {
     "vscode": "^1.77.0"
@@ -12,10 +18,6 @@
   "activationEvents": [
     "onStartupFinished"
   ],
-  "icon": "images/icon.png",
-  "repository": {
-    "url": "https://github.com/hablof/makefile-buttons"
-  },
   "main": "./out/extension.js",
   "contributes": {
     "commands": [

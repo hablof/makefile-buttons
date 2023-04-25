@@ -9,7 +9,7 @@ export function activate(context: vscode.ExtensionContext) {
 
 	context.subscriptions.push(
 		vscode.languages.registerCodeLensProvider(
-			{ scheme: 'file' }, codelensProvider
+			{ scheme: 'file', language: 'makefile' }, codelensProvider
 		)
 	);
 
@@ -62,7 +62,7 @@ class MakefileCodelensProvider implements vscode.CodeLensProvider {
 	}
 
 	public findMatches(document: vscode.TextDocument): vscode.CodeLens[] {
-		console.log('findMatches!')
+		// console.log('findMatches!')
 		
 		const codeLenses: vscode.CodeLens[] = [];
 		const pattern = /^([\w\-]+):/m;

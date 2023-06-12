@@ -65,7 +65,7 @@ class MakefileCodelensProvider implements vscode.CodeLensProvider {
 		// console.log('findMatches!')
 		
 		const codeLenses: vscode.CodeLens[] = [];
-		const pattern = /^([\w\-]+):/m;
+		const pattern = /^([\w\-]+):(?!=)/m;
 		
 		
 		for (let i = 0; i < document.lineCount; i++) {
@@ -95,7 +95,7 @@ class MakefileCodelensProvider implements vscode.CodeLensProvider {
 }
   
 function runCommand(target: string) {
-	console.log('runCommand! target: ' + target)
+	console.log('run target: ' + target)
 
 	let t: vscode.Terminal
 	if (vscode.window.activeTerminal) {

@@ -7,3 +7,7 @@ This extension will make running your makefile commands incredibly easy.
 Adds codelens buttons to your makefiles to run targets by mouse click:
 
 ![feature X](images/main-feature.png "Main feature")
+
+
+### Marketplace VS
+https://marketplace.visualstudio.com/items?itemName=hablof.makefile-buttons

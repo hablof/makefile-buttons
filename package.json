@@ -8,15 +8,20 @@
   "repository": {
     "url": "https://github.com/hablof/makefile-buttons"
   },
-  "version": "0.0.2",
+  "version": "0.0.3",
   "engines": {
     "vscode": "^1.77.0"
   },
   "categories": [
     "Other"
   ],
+  "keywords": [
+    "makefile",
+    "Makefile"
+  ],
   "activationEvents": [
-    "onStartupFinished"
+    "onStartupFinished",
+    "onLanguage:makefile"
   ],
   "main": "./out/extension.js",
   "contributes": {

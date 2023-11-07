@@ -43,15 +43,15 @@ class MakefileCodelensProvider implements vscode.CodeLensProvider {
 
 
 	public provideCodeLenses(document: vscode.TextDocument, token: vscode.CancellationToken): vscode.CodeLens[] {
-		console.log('provideCodeLenses!')
+		// console.log('provideCodeLenses!')
 		
 		if (!this.enabled) {
-			console.log('this not enabled!')
+			// console.log('this not enabled!')
 			return [];
 		}
 		
 		if (!(document.fileName.endsWith('Makefile') || document.fileName.endsWith('makefile'))) {
-			console.log('document is not Makefile!')
+			// console.log('document is not Makefile!')
 			return [];
 		} 
 
